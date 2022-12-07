@@ -1,21 +1,23 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
-
-// class public Objeto with id, nombre, descripcion, precio
+using System.Collections.Generic;
+using System.Text.Json;
 
 Console.WriteLine("Hello, World!");
 // JUGADOR
 Console.WriteLine("Ingrese su nombre");
 string? jugador = Console.ReadLine();
 Console.WriteLine("Hola " + jugador);
+// 
+string json = File.ReadAllText(@"data.json");   
+List<Objeto>? objetos = JsonSerializer.Deserialize<List<Objeto>>(json);
+Console.WriteLine($"There are {objetos?.Count} objects");
+//List<Objeto>? objeto1 = JsonSerializer.Deserialize<List<Objeto>>(json);
 
 
-
-
-string json = System.IO.File.ReadAllText("data.json");
-//Console.WriteLine(json);
-// agregar json a un arreglo
-string[]? data = System.Text.Json.JsonSerializer.Deserialize<string[]>(json);
-// mostrar data
-Console.WriteLine(data[0]);
-
+public class Objeto {
+  public int id { get; set; }
+  public string? nombre { get; set; }
+  public string? descripcion { get; set; }
+  public double? precio {get; set;}
+}
